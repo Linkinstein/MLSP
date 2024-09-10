@@ -3,25 +3,27 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - AINavObstacles
+  - PlayerHitbox
+  - PlayerVisbox
+  - PlayerDMGbox
+  - EnemyHitbox
+  - EnemyFOVbox
+  - EnemyDMGbox
+  - Area
+  - Interactables
+  - Enemy
   - 
   - 
   - 
