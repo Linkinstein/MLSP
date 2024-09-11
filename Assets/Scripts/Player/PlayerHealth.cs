@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    LevelManager lm;
+
     public static PlayerHealth instance;
     public static PlayerAnimator pAnim;
     [SerializeField] public int health = 10;
@@ -16,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
+        lm = LevelManager.instance;
         pAnim = PlayerAnimator.instance;
     }
 
@@ -31,5 +34,6 @@ public class PlayerHealth : MonoBehaviour
     {
         PlayerAnimator.instance.UnHide();
         health -= dmg;
+        lm.hitTaken++;
     }
 }

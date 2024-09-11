@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class DialogueManager : MonoBehaviour
 {
     private static DialogueManager instance;
     private UIManager UIMan;
+
+    public bool ending = false;
 
     public DialogueObject diOb;
     [SerializeField] private GameObject dialogueUI;
@@ -90,6 +93,7 @@ public class DialogueManager : MonoBehaviour
         UIMan.pause = false;
         active = false;
         dialogueUI.SetActive(false);
+        if(ending) LevelManager.instance.End();
     }
 
     public void SetDiOb(DialogueObject dobby)

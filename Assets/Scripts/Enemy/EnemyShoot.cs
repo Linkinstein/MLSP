@@ -22,12 +22,12 @@ public class EnemyShoot : MonoBehaviour
     private IEnumerator Shoot()
     {
         fired = true;
+        yield return new WaitForSeconds(ShootDelay);
         if (eAI.isChasing && cc.enabled)
         {
             Projectile bullet = Instantiate(bulletPrefab, BulletPort.transform.position, Quaternion.identity);
             bullet.ShootAt(eAI.targetVector);
         }
-        yield return new WaitForSeconds(ShootDelay);
         fired = false;
     }
 }

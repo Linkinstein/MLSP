@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    LevelManager lm;
+
     [Header("Physics")]
     public float speed = 1f;
     public float normalSpeed = 1f;
@@ -23,15 +25,23 @@ public class EnemyAI : MonoBehaviour
     public Transform[] patrolPoints;
     public int patrolPointIndex = 0;
 
+    [Header("Defense")]
+    public float defTimer = 20f;
+    private Coroutine StopDef;
+    public GameObject searchMarker;
+
     [Header("Custom Behavior")]
     public bool moveEnabled = true;
     public bool directionLookEnabled = true;
+    public AreaCode ac;
+
+    [Header("Chase")]
     public bool isChasing = false;
     public int chaseMinRange = 1;
     public int chaseMaxRange = 3;
+    private Coroutine StopChase;
     public GameObject alertMarker;
 
-    private Coroutine StopChase;
 
     private Path path;
     private Seeker seeker;
@@ -39,6 +49,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Start()
     {
+        lm = LevelManager.instance;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         if (patrolPoints != null) targetVector = patrolPoints[patrolPointIndex].position;
@@ -162,12 +173,15 @@ public class EnemyAI : MonoBehaviour
 
     public void PlayerFound(Collider2D playerCollider)
     {
+        if (!isChasing) lm.alerted++;
+        searchMarker.SetActive(false);
         targetVector = playerCollider.transform.position;
         moveEnabled = true;
         speed = chaseSpeed;
         isChasing = true;
         if (StopChase!=null) StopCoroutine(StopChase);
         alertMarker.SetActive(true);
+        ac.Alarm();
     }
 
     public void UpdatePlayerPosition(Collider2D playerCollider)
@@ -189,5 +203,26 @@ public class EnemyAI : MonoBehaviour
         speed = normalSpeed;
         isChasing = false;
         alertMarker.SetActive(false);
+    }
+
+    public void Defend(Transform defTarget)
+    {
+        searchMarker.SetActive(true);
+        float rand = Random.Range(-3f, 3f);
+        Vector2 newTargetVector = new Vector2(defTarget.position.x + rand, defTarget.position.x);
+        isChasing = true;
+        speed = chaseSpeed;
+        targetVector = newTargetVector;
+        StopChase = StartCoroutine(BackFromDefense());
+    }
+
+    private IEnumerator BackFromDefense()
+    {
+        yield return new WaitForSeconds(defTimer);
+        targetVector = patrolPoints[patrolPointIndex].position;
+        moveEnabled = true;
+        speed = normalSpeed;
+        isChasing = false;
+        searchMarker.SetActive(false);
     }
 }
