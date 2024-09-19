@@ -11,7 +11,7 @@ public class CQC2_Transition : StateMachineBehaviour
     {
         pAnim = PlayerAnimator.instance;
         pAnim.CQCBox[1].SetActive(true);
-        pAnim.Lunge();
+        PlayerInput.instance.Lunge();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

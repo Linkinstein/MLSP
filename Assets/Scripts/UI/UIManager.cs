@@ -5,9 +5,16 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    private bool _pause = false;
+
+    private DialogueManager dMan;
+    private EndScreenManager esMan;
+
     [SerializeField] private GameObject PauseUI;
+
+    private bool _pause = false;
+    public bool cinematic = false;
     private bool pauseOn = false;
+
     public bool pause
     {
         get { return _pause; }
@@ -25,21 +32,27 @@ public class UIManager : MonoBehaviour
         pause = false;
     }
 
+    private void Start()
+    {
+        dMan = DialogueManager.Instance;
+        esMan = EndScreenManager.Instance;
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !cinematic)
         {
-            if (!pauseOn)
-            {
-                pause = true;
-                PauseUI.SetActive(true);
-                pauseOn  = true;
-            }
-            else
-            {
-                Unpause();
-            }
+            if (!pauseOn) Pause();
+            else Unpause();
+            
         }
+    }
+
+    public void Pause()
+    {
+        pause = true;
+        PauseUI.SetActive(true);
+        pauseOn = true;
     }
 
     public void Unpause()
@@ -47,6 +60,17 @@ public class UIManager : MonoBehaviour
         pause = false;
         PauseUI.SetActive(false);
         pauseOn = false;
+    }
+
+    public void End(string time, int spd, int alertos, int hiTakis, int takis, bool nills, bool nalerts, bool perfsta, int totesco)
+    {
+        esMan.End(time, spd, alertos, hiTakis, takis, nills, nalerts, perfsta, totesco);
+    }
+
+    public void StartDialogue(DialogueObject diOb)
+    {
+        dMan.SetDiOb(diOb);
+        dMan.On();
     }
 
     public void Exit()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EndScreenManager : MonoBehaviour
 {
-    public static EndScreenManager  instance;
+    public static EndScreenManager  Instance;
 
     [SerializeField] private GameObject ESUI;
 
@@ -21,7 +21,7 @@ public class EndScreenManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public void End(string time, int spd, int alertos, int hiTakis, int takis, bool nills, bool nalerts, bool perfsta, int totesco)

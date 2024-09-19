@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    EndScreenManager esm;
+    UIManager UIMan;
 
     public static LevelManager instance;
     public GameObject PlayerArea;
@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        esm = EndScreenManager.instance;    
+        UIMan = UIManager.Instance;    
 
     }
 
@@ -63,6 +63,6 @@ public class LevelManager : MonoBehaviour
         if (noalerts) totalScore += 750;
         if (perfect) totalScore += 1000;
 
-        esm.End(time, speedScore, alertedScore, hitTakenScore, takeDownScore, nokills, noalerts, perfect, totalScore);
+        UIMan.End(time, speedScore, alertedScore, hitTakenScore, takeDownScore, nokills, noalerts, perfect, totalScore);
     }
 }

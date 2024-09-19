@@ -7,11 +7,13 @@ public class HideyHole : MonoBehaviour
     [SerializeField] private GameObject prompt;
     private bool hiding = false;
     private PlayerAnimator pAnim;
+    private PlayerManager pMan;
 
     private void Start()
     {
         prompt.SetActive(false);
         pAnim = PlayerAnimator.instance;
+        pMan = PlayerManager.Instance;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

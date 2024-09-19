@@ -106,8 +106,7 @@ public class EnemyAI : MonoBehaviour
         if (isChasing)
         {
             float chaseRange = Vector2.Distance(rb.position, targetVector);
-            Debug.Log(chaseRange);
-            if (chaseMinRange < chaseRange && chaseRange < chaseMaxRange) moveEnabled = false;
+            if (chaseRange < chaseMaxRange) moveEnabled = false;
             else moveEnabled = true;
         }
         else moveEnabled = true;

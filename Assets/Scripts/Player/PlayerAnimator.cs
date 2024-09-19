@@ -5,19 +5,26 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     public static PlayerAnimator instance;
-    private UIManager UIMan;
 
-    private PlayerInput mov;
+    private UIManager UIMan;
+    private PlayerManager pMan;
+
     public Animator anim;
     private SpriteRenderer sr;
-    public bool attacking = false;
     public GameObject[] CQCBox;
     public BoxCollider2D VisBox;
     public BoxCollider2D DashBox;
+
     public bool canMove
     {
-        get {return mov.canMove;}
-        set { mov.canMove = value; }
+        get {return pMan.canMove;}
+        set { pMan.canMove = value; }
+    }
+
+    public bool attacking
+    {
+        get { return pMan.attacking; }
+        set { pMan.attacking = value; }
     }
 
     [Header("Particle FX")]
@@ -38,20 +45,23 @@ public class PlayerAnimator : MonoBehaviour
     private void Start()
     {
         UIMan = UIManager.Instance;
-        mov = GetComponent<PlayerInput>();
+        pMan = PlayerManager.Instance;
         sr = GetComponentInChildren<SpriteRenderer>();
         anim = sr.GetComponent<Animator>();
     }
 
     private void Update()
     {
-        CheckAnimationState();
+        if (!UIMan.pause && !UIMan.cinematic)
+        {
+            CheckAnimationState();
+        }
     }
 
     private void CheckAnimationState()
     {
-        anim.SetFloat("Vel Y", mov.RB.velocity.y);
-        anim.SetBool("Walking", Mathf.Abs(mov.RB.velocity.x) > 0.1f);
+        anim.SetFloat("Vel Y", pMan.RB.velocity.y);
+        anim.SetBool("Walking", Mathf.Abs(pMan.RB.velocity.x) > 0.1f);
 
         if (startedJumping)
         {
@@ -81,11 +91,6 @@ public class PlayerAnimator : MonoBehaviour
             attacking = true;
             anim.Play("Player_CQC1");
         }
-    }
-
-    public void Lunge()
-    { 
-        mov.Lunge();
     }
 
     public void Hide()

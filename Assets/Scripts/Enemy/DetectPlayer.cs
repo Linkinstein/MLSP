@@ -34,13 +34,19 @@ public class DetectPlayer : MonoBehaviour
 
         if (hit.collider == null)
         {
+            PlayerManager.Instance.seen = true;
             eAI.UpdatePlayerPosition(collision);
             cc.enabled = true;
+        }
+        else
+        {
+            PlayerManager.Instance.seen = false;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        PlayerManager.Instance.seen = false;
         eAI.PlayerLost();
         ccFade = StartCoroutine(ccFadeStart());
     }

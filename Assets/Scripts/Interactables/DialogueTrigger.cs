@@ -6,14 +6,14 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    private DialogueManager dm;
+    private UIManager UIMan;
 
     [SerializeField] private bool step = false;
     [SerializeField] private DialogueObject dialogueObject;
 
     private void Start()
     {
-        dm = DialogueManager.Instance;
+        UIMan = UIManager.Instance;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,7 +44,6 @@ public class DialogueTrigger : MonoBehaviour
 
     private void talky()
     {
-        dm.SetDiOb(dialogueObject);
-        dm.On();
+        UIMan.StartDialogue(dialogueObject);
     }
 }
