@@ -1,6 +1,7 @@
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -26,8 +27,9 @@ public class EnemyAI : MonoBehaviour
     public int patrolPointIndex = 0;
 
     [Header("Defense")]
+    public bool checkingSus = false;
+    private GameObject susTarget;
     public float defTimer = 20f;
-    private Coroutine StopDef;
     public GameObject searchMarker;
 
     [Header("Custom Behavior")]
@@ -37,7 +39,6 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Chase")]
     public bool isChasing = false;
-    public int chaseMinRange = 1;
     public int chaseMaxRange = 3;
     private Coroutine StopChase;
     public GameObject alertMarker;
@@ -92,16 +93,29 @@ public class EnemyAI : MonoBehaviour
         }
 
         #region Arrive at Patrol Point
-        if (Vector2.Distance(rb.position, patrolPoints[patrolPointIndex].position) < nextWaypointDistance && !isChasing)
+        if (Vector2.Distance(rb.position, patrolPoints[patrolPointIndex].position) < nextWaypointDistance && !isChasing && !checkingSus)
         {
             StartCoroutine(PatrolPointArrived());
             return;
         }
         #endregion
 
-        Vector2 direction = ((Vector2)path.vectorPath[waypointIndex] - rb.position).normalized;
 
         #region Move
+
+        // Next Waypoint
+        float distance = Vector2.Distance(rb.position, path.vectorPath[waypointIndex]);
+
+        if (distance < nextWaypointDistance)
+        {
+            waypointIndex++;
+            if (waypointIndex >= path.vectorPath.Count)
+            {
+                return;
+            }
+            distance = Vector2.Distance(rb.position, path.vectorPath[waypointIndex]);
+        }
+        Vector2 direction = (((Vector2)path.vectorPath[waypointIndex] - rb.position) * 1000).normalized;
 
         if (isChasing)
         {
@@ -117,27 +131,34 @@ public class EnemyAI : MonoBehaviour
             Vector2 force = direction * speed;
 
             // Movement
-            float distance = Vector2.Distance(rb.position, path.vectorPath[waypointIndex]);
             rb.velocity = new Vector2(force.x, rb.velocity.y);
-
-            // Next Waypoint
-            if (distance < nextWaypointDistance)
-            {
-                waypointIndex++;
-            }
-
         }
 
+        #endregion
+
+        #region Checking Sussy
+        if (checkingSus)
+        {
+            if (Vector2.Distance(rb.position, targetVector) < 3f)
+            {
+                searchMarker.SetActive(false);
+                alertMarker.SetActive(true);
+                Destroy(susTarget);
+                lm.alerted++;
+                moveEnabled = false;
+                StopChase = StartCoroutine(BackToPatrol());
+            }
+        }
         #endregion
 
         #region Turn
         if (directionLookEnabled)
         {
-            if (direction.x > 0)
+            if (rb.velocity.x > 0)
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else if (direction.x < 0)
+            else if (rb.velocity.x < 0)
             {
                 transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
@@ -159,28 +180,37 @@ public class EnemyAI : MonoBehaviour
         //transform.localScale = new Vector3(transform.localScale.x*x, transform.localScale.y, transform.localScale.z);
         moveEnabled = false;
         yield return new WaitForSeconds(patrolPause);
-        NextPatrolPoint();
-        moveEnabled = true;
-    }
-
-    void NextPatrolPoint()
-    {
-        if (patrolPointIndex >= patrolPoints.Length-1) patrolPointIndex = 0;
+        if (patrolPointIndex >= patrolPoints.Length - 1) patrolPointIndex = 0;
         else patrolPointIndex++;
         targetVector = patrolPoints[patrolPointIndex].transform.position;
+        moveEnabled = true;
     }
 
     public void PlayerFound(Collider2D playerCollider)
     {
         if (!isChasing) lm.alerted++;
+        checkingSus = false;
         searchMarker.SetActive(false);
         targetVector = playerCollider.transform.position;
         moveEnabled = true;
         speed = chaseSpeed;
         isChasing = true;
-        if (StopChase!=null) StopCoroutine(StopChase);
+        if (StopChase != null) StopCoroutine(StopChase);
         alertMarker.SetActive(true);
         ac.Alarm();
+    }
+
+    public void checkSussy(Collider2D sussyCollider)
+    {
+        if (!isChasing)
+        {
+            susTarget = sussyCollider.gameObject;
+            checkingSus = true;
+            searchMarker.SetActive(true);
+            targetVector = sussyCollider.transform.position;
+            moveEnabled = true;
+            speed = chaseSpeed;
+        }
     }
 
     public void UpdatePlayerPosition(Collider2D playerCollider)
@@ -197,11 +227,13 @@ public class EnemyAI : MonoBehaviour
     private IEnumerator BackToPatrol()
     {
         yield return new WaitForSeconds(chaseTimer);
+        checkingSus = false;
         targetVector = patrolPoints[patrolPointIndex].position;
         moveEnabled = true;
         speed = normalSpeed;
         isChasing = false;
         alertMarker.SetActive(false);
+        searchMarker.SetActive(false);
     }
 
     public void Defend(Transform defTarget)
@@ -212,16 +244,6 @@ public class EnemyAI : MonoBehaviour
         isChasing = true;
         speed = chaseSpeed;
         targetVector = newTargetVector;
-        StopChase = StartCoroutine(BackFromDefense());
-    }
-
-    private IEnumerator BackFromDefense()
-    {
-        yield return new WaitForSeconds(defTimer);
-        targetVector = patrolPoints[patrolPointIndex].position;
-        moveEnabled = true;
-        speed = normalSpeed;
-        isChasing = false;
-        searchMarker.SetActive(false);
+        StopChase = StartCoroutine(BackToPatrol());
     }
 }

@@ -236,7 +236,7 @@ public class PlayerInput : MonoBehaviour
 			#endregion
 
 			#region DASH CHECKS
-			if (CanDash() && LastPressedDashTime > 0 && !attacking && canMove)
+			if (CanDash() && LastPressedDashTime > 0 && !attacking && canMove && pMan.stamina>30)
 			{
 				//Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
 				Sleep(Data.dashSleepTime);
@@ -247,7 +247,7 @@ public class PlayerInput : MonoBehaviour
 				else
 					_lastDashDir = IsFacingRight ? Vector2.right : Vector2.left;
 
-
+				pMan.stamina -= 30;
 
 				IsDashing = true;
 				IsJumping = false;

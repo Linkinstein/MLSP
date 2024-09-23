@@ -13,52 +13,34 @@ public class AreaCode : MonoBehaviour
     public GameObject spawnPoint;
     public List<GameObject> units;
     public bool respawn;
+    public bool respawning = false;
     public float respawnTimer;
     public float respawnInterval; 
     public int unitHousing = 2;
 
-    private float currentRespawnTimer;
-    private float currentIntervalTimer;
-
     private void Update()
     {
-        if (patrolIndex >= patrols.Length) patrolIndex = 0;
-
         if (respawn)
         {
-            if (units.Count == 0 && currentRespawnTimer <= 0)
+            if (units.Count == 0 && !respawning)
             {
-                currentRespawnTimer = respawnTimer;
-            }
-
-            if (currentRespawnTimer > 0)
-            {
-                currentRespawnTimer -= Time.deltaTime;
-
-                if (currentRespawnTimer <= 0)
-                {
-                    currentRespawnTimer = 0;
-
-                    currentIntervalTimer = 0;
-                }
-            }
-
-            if (currentIntervalTimer >= 0)
-            {
-                currentIntervalTimer += Time.deltaTime; 
-
-                if (currentIntervalTimer >= respawnInterval)
-                {
-                    currentIntervalTimer = 0; 
-
-                    if (units.Count < unitHousing)
-                    {
-                        Spawn(pawn);
-                        patrolIndex++;
-                    }
-                }
+                StartCoroutine(RespawnSequence());
             }
         }
+    }
+
+    IEnumerator RespawnSequence()
+    {
+        respawning = true;
+        yield return new WaitForSeconds(respawnTimer);
+        while (units.Count < unitHousing-1)
+        {
+            yield return new WaitForSeconds(respawnInterval);
+            if (patrolIndex >= patrols.Length) patrolIndex = 0;
+            Spawn(pawn);
+            patrolIndex++;
+        }
+        respawning = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

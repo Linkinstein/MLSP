@@ -5,15 +5,40 @@ using UnityEngine;
 public class Death : MonoBehaviour
 {
     LevelManager lm;
+    EnemyAI eAI;
+    EnemyShoot eS;
+    EnemyAnimator eAnim;
+    SuspiciousObject susOb;
+    public bool death = false;
+    public bool canSus = false;
 
     public virtual void Start()
     {
+        if (canSus) susOb = GetComponent<SuspiciousObject>();
         lm = LevelManager.instance;
+        eAI = GetComponent<EnemyAI>();
+        eS = GetComponent<EnemyShoot>();
+        eAnim = GetComponent<EnemyAnimator>();
+        death = false;
     }
 
     public virtual void Die()
     {
+        if (canSus) susOb.sussy = true;
+        eAnim.Die();
         lm.takedown++;
-        Destroy(gameObject);
+        eS.enabled = false;
+        DisableAllChildren();
+        eAI.enabled = false;
+        eAnim.enabled = false;
+        death = true;
+    }
+
+    public void DisableAllChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
     }
 }

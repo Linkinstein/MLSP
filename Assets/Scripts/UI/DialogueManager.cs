@@ -51,12 +51,16 @@ public class DialogueManager : MonoBehaviour
     {
         if (active) UIMan.pause = true;
 
-        if (active && Input.GetKeyDown(KeyCode.Space) || active && Input.GetMouseButtonDown(0))
-        {
-            index++;
-            if (index >= diOb.dialogues.Length) Off();
-            else Next();
-        }
+        if (active && Input.GetKeyDown(KeyCode.Space) || active && Input.GetMouseButtonDown(0)) NextClicked();
+
+        if (active && Input.GetKey(KeyCode.LeftShift) || active && Input.GetKey(KeyCode.RightShift)) NextClicked();
+    }
+
+    private void NextClicked()
+    {
+        index++;
+        if (index >= diOb.dialogues.Length) Off();
+        else Next();
     }
 
     public void On()

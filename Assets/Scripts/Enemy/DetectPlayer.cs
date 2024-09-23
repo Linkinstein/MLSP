@@ -16,39 +16,63 @@ public class DetectPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector2 directionToCollision = (Vector2)collision.transform.position - (Vector2)transform.position;
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, directionToCollision, directionToCollision.magnitude, groundLayerMask);
-
-        if (hit.collider == null)
+        if (collision.CompareTag("Player"))
         {
-            eAI.PlayerFound(collision);
-            cc.enabled = true;
-            StopCoroutine(ccFade);
+            Vector2 directionToCollision = (Vector2)collision.transform.position - (Vector2)transform.position;
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, directionToCollision, directionToCollision.magnitude, groundLayerMask);
+
+            if (hit.collider == null)
+            {
+                eAI.PlayerFound(collision);
+                cc.enabled = true;
+                StopCoroutine(ccFade);
+            }
+        }
+
+        if (collision.CompareTag("Enemy") && !eAI.isChasing)
+        {
+            Vector2 directionToCollision = (Vector2)collision.transform.position - (Vector2)transform.position;
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, directionToCollision, directionToCollision.magnitude, groundLayerMask);
+
+            if (hit.collider == null)
+            {
+                SuspiciousObject susOb = collision.GetComponent<SuspiciousObject>();
+                if (susOb != null)
+                {
+                    if(susOb.sussy) eAI.checkSussy(collision);
+                }
+            }
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Vector2 directionToCollision = (Vector2)collision.transform.position - (Vector2)transform.position;
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, directionToCollision, directionToCollision.magnitude, groundLayerMask);
+        if (collision.CompareTag("Player"))
+        {
+            Vector2 directionToCollision = (Vector2)collision.transform.position - (Vector2)transform.position;
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, directionToCollision, directionToCollision.magnitude, groundLayerMask);
 
-        if (hit.collider == null)
-        {
-            PlayerManager.Instance.seen = true;
-            eAI.UpdatePlayerPosition(collision);
-            cc.enabled = true;
-        }
-        else
-        {
-            PlayerManager.Instance.seen = false;
+            if (hit.collider == null)
+            {
+                PlayerManager.Instance.seen = true;
+                eAI.UpdatePlayerPosition(collision);
+                cc.enabled = true;
+            }
+            else
+            {
+                PlayerManager.Instance.seen = false;
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        PlayerManager.Instance.seen = false;
-        eAI.PlayerLost();
-        ccFade = StartCoroutine(ccFadeStart());
+        if (collision.CompareTag("Player"))
+        {
+            PlayerManager.Instance.seen = false;
+            eAI.PlayerLost();
+            ccFade = StartCoroutine(ccFadeStart());
+        }
     }
 
     IEnumerator ccFadeStart()
