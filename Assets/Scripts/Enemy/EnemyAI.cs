@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     LevelManager lm;
+    UIManager UIMan;
 
     [Header("Physics")]
     public float speed = 1f;
@@ -50,6 +51,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Start()
     {
+        UIMan = UIManager.Instance;
         lm = LevelManager.instance;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
@@ -141,6 +143,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (Vector2.Distance(rb.position, targetVector) < 3f)
             {
+                UIMan.PABark("Body");
                 searchMarker.SetActive(false);
                 alertMarker.SetActive(true);
                 Destroy(susTarget);
@@ -204,6 +207,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (!isChasing)
         {
+            UIMan.PABark("Sussy");
             susTarget = sussyCollider.gameObject;
             checkingSus = true;
             searchMarker.SetActive(true);
@@ -215,6 +219,7 @@ public class EnemyAI : MonoBehaviour
 
     public void UpdatePlayerPosition(Collider2D playerCollider)
     {
+        UIMan.PABark("Alert");
         targetVector = playerCollider.transform.position;
         isChasing = true;
     }

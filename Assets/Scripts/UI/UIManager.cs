@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 
     private DialogueManager dMan;
     private EndScreenManager esMan;
+    private PASystem PASys;
 
     [SerializeField] private GameObject PauseUI;
 
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour
     {
         dMan = DialogueManager.Instance;
         esMan = EndScreenManager.Instance;
+        PASys = PASystem.Instance;
     }
 
     void Update()
@@ -76,5 +78,21 @@ public class UIManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void PABark(string barkType)
+    {
+        switch (barkType)
+        {
+            case "Alert":
+                PASys.Alert();
+                break;
+            case "Sussy":
+                PASys.Sustivity();
+                break;
+            case "Body":
+                PASys.BodyFound();
+                break;
+        }
     }
 }

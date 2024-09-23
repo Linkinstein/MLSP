@@ -61,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
+        pMan.trash = false;
         PlayerAnimator.instance.UnHide();
         health -= dmg;
         lm.hitTaken++;

@@ -14,6 +14,11 @@ public class DetectPlayer : MonoBehaviour
         cc = GetComponent<CircleCollider2D>();
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

@@ -11,6 +11,12 @@ public class EnemyShoot : MonoBehaviour
     [SerializeField] private bool fired = false;
     [SerializeField] private float ShootDelay = 3f;
 
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void Update()
     {
         if (!fired && eAI.isChasing && cc.enabled)

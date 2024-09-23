@@ -656,6 +656,7 @@ GameObject:
   - component: {fileID: 8896521230751864638}
   - component: {fileID: 649165507701759085}
   - component: {fileID: 3680365533839376335}
+  - component: {fileID: 3483643334807108471}
   - component: {fileID: 4281693610375056915}
   - component: {fileID: 1336079667751487672}
   - component: {fileID: 4231571709340868832}
@@ -755,6 +756,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &3483643334807108471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7935656181061688128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e099cc1ae3d94d40ae14c41863799cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 1
+  seen: 0
+  attacking: 0
+  isDashing: 0
+  canTrash: 1
+  trash: 0
+  dead: 0
+  health: 10
+  maxHealth: 10
+  stamina: 100
+  maxStamina: 100
+  staminaRegen: 20
 --- !u!114 &4281693610375056915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,8 +837,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108828e931563d949a9f04a596f60020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  maxHealth: 10
 --- !u!1 &8305897844030468600
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,18 @@ public class PlayerInput : MonoBehaviour
         set { pMan.attacking = value; }
     }
 
+    public bool canTrash
+    {
+        get { return pMan.canTrash; }
+        set { pMan.canTrash = value; }
+    }
+
+    public bool trash
+    {
+        get { return pMan.trash; }
+        set { pMan.trash = value; }
+    }
+
     //Scriptable object which holds all the player's movement parameters. If you don't want to use it
     //just paste in all the parameters, though you will need to manuly change all references in this script
     public PlayerData Data;
@@ -140,15 +152,11 @@ public class PlayerInput : MonoBehaviour
 				if (_moveInput.x != 0)
 					CheckDirectionToFace(_moveInput.x > 0);
 
-				if (Input.GetKeyDown(KeyCode.Space))
-				{
-					OnJumpInput();
-				}
+				if (Input.GetKeyDown(KeyCode.Space)) OnJumpInput();
 
-				if (Input.GetKeyDown(KeyCode.LeftShift))
-				{
-					OnDashInput();
-				}
+				if (Input.GetKeyDown(KeyCode.LeftShift)) OnDashInput();
+
+				if (Input.GetKeyDown(KeyCode.F)) OnTrashInput();
 			}
 			else
 			{
@@ -206,7 +214,7 @@ public class PlayerInput : MonoBehaviour
 				_isJumpFalling = false;
 			}
 
-			if (!IsDashing && !attacking && canMove)
+			if (!IsDashing && !attacking && canMove && !trash)
 			{
 				//Jump
 				if (CanJump() && LastPressedJumpTime > 0)
@@ -236,7 +244,7 @@ public class PlayerInput : MonoBehaviour
 			#endregion
 
 			#region DASH CHECKS
-			if (CanDash() && LastPressedDashTime > 0 && !attacking && canMove && pMan.stamina>30)
+			if (CanDash() && LastPressedDashTime > 0 && !attacking && canMove && pMan.stamina>30 && !trash)
 			{
 				//Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
 				Sleep(Data.dashSleepTime);
@@ -311,6 +319,11 @@ public class PlayerInput : MonoBehaviour
 			#endregion
 		}
     }
+
+	void OnTrashInput()
+	{
+		if (canTrash && CanJump()) trash = !trash;
+	}
 
     public void Lunge()
     {

@@ -61,6 +61,7 @@ public class PlayerAnimator : MonoBehaviour
     private void CheckAnimationState()
     {
         anim.SetFloat("Vel Y", pMan.RB.velocity.y);
+        anim.SetBool("Trash", pMan.trash);
         anim.SetBool("Walking", Mathf.Abs(pMan.RB.velocity.x) > 0.1f);
 
         if (startedJumping)
@@ -85,7 +86,7 @@ public class PlayerAnimator : MonoBehaviour
             dash = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && !attacking && canMove && !UIMan.pause)
+        if (Input.GetMouseButtonDown(0) && !attacking && canMove && !pMan.trash)
         {
             canMove = false;
             attacking = true;

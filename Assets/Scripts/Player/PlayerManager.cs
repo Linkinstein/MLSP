@@ -9,9 +9,15 @@ public class PlayerManager : MonoBehaviour
 
     public bool canMove = true;
     public bool seen = false;
+
     public bool attacking = false;
     public bool isDashing = false;
+
+    public bool canTrash = false;
+    public bool trash = false;
+
     public bool dead = false;
+
 
 
     [SerializeField] public int health = 10;

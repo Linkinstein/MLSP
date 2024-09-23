@@ -9,7 +9,7 @@ public class Death : MonoBehaviour
     EnemyShoot eS;
     EnemyAnimator eAnim;
     SuspiciousObject susOb;
-    public bool death = false;
+    public bool dead = false;
     public bool canSus = false;
 
     public virtual void Start()
@@ -19,7 +19,7 @@ public class Death : MonoBehaviour
         eAI = GetComponent<EnemyAI>();
         eS = GetComponent<EnemyShoot>();
         eAnim = GetComponent<EnemyAnimator>();
-        death = false;
+        dead = false;
     }
 
     public virtual void Die()
@@ -31,7 +31,7 @@ public class Death : MonoBehaviour
         DisableAllChildren();
         eAI.enabled = false;
         eAnim.enabled = false;
-        death = true;
+        dead = true;
     }
 
     public void DisableAllChildren()
