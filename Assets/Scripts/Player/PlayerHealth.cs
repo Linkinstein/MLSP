@@ -47,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
         lm = LevelManager.instance;
         pAnim = PlayerAnimator.instance;
         InvokeRepeating("RegenerateStamina", 0f, 1f);
+        InvokeRepeating("RegenerateHealth", 0f, 5f);
     }
 
     private void Update()
@@ -55,12 +56,15 @@ public class PlayerHealth : MonoBehaviour
         {
             pMan.dead = true;
             pAnim.Death();
+            pMan.Death();
         }
 
     }
 
     public void TakeDamage(int dmg)
     {
+        pMan.DashBox.enabled = true;
+        pMan.VisBox.enabled = true;
         pMan.trash = false;
         PlayerAnimator.instance.UnHide();
         health -= dmg;

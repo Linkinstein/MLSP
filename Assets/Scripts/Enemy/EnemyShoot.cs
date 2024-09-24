@@ -8,6 +8,7 @@ public class EnemyShoot : MonoBehaviour
     [SerializeField] private Projectile bulletPrefab;
     [SerializeField] private EnemyAI eAI;
     [SerializeField] private CircleCollider2D cc;
+    [SerializeField] private AudioSource aS;
     [SerializeField] private bool fired = false;
     [SerializeField] private float ShootDelay = 3f;
 
@@ -33,6 +34,7 @@ public class EnemyShoot : MonoBehaviour
         {
             Projectile bullet = Instantiate(bulletPrefab, BulletPort.transform.position, Quaternion.identity);
             bullet.ShootAt(eAI.targetVector);
+            aS.Play();
         }
         fired = false;
     }

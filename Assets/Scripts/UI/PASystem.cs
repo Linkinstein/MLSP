@@ -9,6 +9,8 @@ public class PASystem : MonoBehaviour
 {
     public static PASystem Instance;
 
+    [SerializeField] AudioSource aS;
+
     [SerializeField] Image header;
     [SerializeField] TextMeshProUGUI headerText;
     [SerializeField] Image panel;
@@ -53,6 +55,7 @@ public class PASystem : MonoBehaviour
         timer = panelLife;
         panelColor = Color.red;
         text.SetText("Intruder Detected");
+        if (!aS.isPlaying) aS.Play();
     }
 
     public void Sustivity()
@@ -74,6 +77,7 @@ public class PASystem : MonoBehaviour
             timer = panelLife;
             panelColor = Color.yellow;
             text.SetText("Body found");
+            if (!aS.isPlaying) aS.Play();
         }
     }
 

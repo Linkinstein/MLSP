@@ -131,7 +131,7 @@ public class PlayerInput : MonoBehaviour
 
 	private void Update()
 	{
-		if (!UIMan.pause && !UIMan.cinematic)
+		if (!UIMan.pause && !UIMan.cinematic && !pMan.dead)
 		{
 			#region TIMERS
 			LastOnGroundTime -= Time.deltaTime;

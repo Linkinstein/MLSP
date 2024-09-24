@@ -8,6 +8,9 @@ public class DialogueTrigger : MonoBehaviour
 {
     private UIManager UIMan;
 
+    [SerializeField] private bool willEnd = false;
+    [SerializeField] private bool willProgress = false;
+    [SerializeField] private Progressor progger;
     [SerializeField] private bool step = false;
     [SerializeField] private DialogueObject dialogueObject;
 
@@ -23,7 +26,6 @@ public class DialogueTrigger : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                 talky();
-                Destroy(this.gameObject);
             }
         }
     }
@@ -45,5 +47,8 @@ public class DialogueTrigger : MonoBehaviour
     private void talky()
     {
         UIMan.StartDialogue(dialogueObject);
+        if (willProgress) progger.Progress();
+        if (willEnd) UIMan.DharmanEnding();
+        this.gameObject.SetActive(false);
     }
 }

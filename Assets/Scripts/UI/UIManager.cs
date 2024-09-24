@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private PASystem PASys;
 
     [SerializeField] private GameObject PauseUI;
+    [SerializeField] private GameObject RetryUI;
 
     private bool _pause = false;
     public bool cinematic = false;
@@ -76,8 +77,9 @@ public class UIManager : MonoBehaviour
         dMan.On();
     }
 
-    public void Exit()
+    public void Back2Menu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 
@@ -95,5 +97,15 @@ public class UIManager : MonoBehaviour
                 PASys.BodyFound();
                 break;
         }
+    }
+
+    public void DharmanEnding()
+    { 
+        dMan.ending = true;
+    }
+
+    public void Dead()
+    { 
+        RetryUI.SetActive(true);
     }
 }

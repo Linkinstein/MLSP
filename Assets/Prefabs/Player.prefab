@@ -772,6 +772,8 @@ MonoBehaviour:
   seen: 0
   attacking: 0
   isDashing: 0
+  VisBox: {fileID: 1790882891405359209}
+  DashBox: {fileID: 3071143049442101177}
   canTrash: 1
   trash: 0
   dead: 0
@@ -820,8 +822,6 @@ MonoBehaviour:
   - {fileID: 2588536128487058032}
   - {fileID: 8305897844030468600}
   - {fileID: 7652566565275402567}
-  VisBox: {fileID: 3071143049442101177}
-  DashBox: {fileID: 1790882891405359209}
   jumpFX: {fileID: 3234584074981126610, guid: ef64e6572022fbb47969c1618d73ef20, type: 3}
   landFX: {fileID: 3234584074981126610, guid: 0618e2f871341254cafc1ffc33fc18df, type: 3}
   currentVelY: 0

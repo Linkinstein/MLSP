@@ -12,8 +12,14 @@ public class PlayerAnimator : MonoBehaviour
     public Animator anim;
     private SpriteRenderer sr;
     public GameObject[] CQCBox;
-    public BoxCollider2D VisBox;
-    public BoxCollider2D DashBox;
+    public BoxCollider2D VisBox
+    {
+        get { return pMan.VisBox; }
+    }
+    public BoxCollider2D DashBox
+    {
+        get { return pMan.VisBox; }
+    }
 
     public bool trash
     {
@@ -58,7 +64,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Update()
     {
-        if (!UIMan.pause && !UIMan.cinematic)
+        if (!UIMan.pause && !UIMan.cinematic && !pMan.dead)
         {
             CheckAnimationState();
         }
@@ -71,8 +77,16 @@ public class PlayerAnimator : MonoBehaviour
         anim.SetBool("Walking", Mathf.Abs(pMan.RB.velocity.x) > 0.1f);
         if (trash)
         {
-            if (Mathf.Abs(pMan.RB.velocity.x) > 0.1f || Mathf.Abs(pMan.RB.velocity.y) > 0.1f) VisBox.enabled = true;
-            else VisBox.enabled = false;
+            if (Mathf.Abs(pMan.RB.velocity.x) > 0.1f || Mathf.Abs(pMan.RB.velocity.y) > 0.1f)
+            { 
+                VisBox.enabled = true; 
+                DashBox.enabled = true;
+            }
+            else
+            {
+                VisBox.enabled = false;
+                DashBox.enabled = false;
+            }
         }
 
 

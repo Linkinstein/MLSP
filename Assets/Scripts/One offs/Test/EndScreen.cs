@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EndScreen : MonoBehaviour
 {
-
-    private void OnDestroy()
+    private void OnDisable()
     {
         DialogueManager.Instance.ending = true;
     }

@@ -8,6 +8,7 @@ public class EnemyAnimator : MonoBehaviour
     private UIManager UIMan;
     Rigidbody2D RB;
     Animator anim;
+    [SerializeField] AudioSource aS;
 
     void Start()
     {
@@ -28,6 +29,15 @@ public class EnemyAnimator : MonoBehaviour
     {
         anim.SetFloat("Vel Y", RB.velocity.y);
         anim.SetBool("Walking", Mathf.Abs(RB.velocity.x) > 0.1f);
+        if (Mathf.Abs(RB.velocity.x) > 0.1f)
+        {
+            if (!aS.isPlaying)
+            {
+                if (aS.pitch > 0.8f) aS.pitch = 0.8f;
+                else aS.pitch = 1f;
+                aS.Play();
+            }
+        }
     }
 
     public void Die()

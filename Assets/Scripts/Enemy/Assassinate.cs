@@ -6,6 +6,7 @@ public class Assassinate : MonoBehaviour
 {
     [SerializeField] private GameObject prompt;
     [SerializeField] private Death d;
+    [SerializeField] private AudioSource aS;
     PlayerManager pMan;
     bool killable = false;
 
@@ -18,6 +19,7 @@ public class Assassinate : MonoBehaviour
     {
         if (killable && Input.GetKeyDown(KeyCode.E) && !pMan.attacking && !pMan.isDashing)
         {
+            aS.Play();
             d.Die();
         }
     }

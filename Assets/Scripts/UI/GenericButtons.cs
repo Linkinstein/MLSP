@@ -14,4 +14,10 @@ public class GenericButtons : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void RestartLevel()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

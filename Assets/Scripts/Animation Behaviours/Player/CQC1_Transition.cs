@@ -9,6 +9,7 @@ public class CQC1_Transition : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        ATKComboSound.Instance.hit1();
         pAnim = PlayerAnimator.instance;
         pAnim.CQCBox[0].SetActive(true);
     }

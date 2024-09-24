@@ -6,6 +6,8 @@ public class LevelManager : MonoBehaviour
 {
     UIManager UIMan;
 
+    [SerializeField] GameObject AllAreas;
+
     public static LevelManager instance;
     public GameObject PlayerArea;
     public bool highAlert = false;
@@ -16,6 +18,8 @@ public class LevelManager : MonoBehaviour
     public float timer = 0;
 
     public int reinforcementNo;
+
+    public int switches = 0;
 
     private void Awake()
     {
@@ -43,7 +47,7 @@ public class LevelManager : MonoBehaviour
         string time = string.Format("{0:D2}:{1:D2}", minutes, seconds);
 
 
-        int speedScore = (int)t * -1;
+        int speedScore = 5000-((int)t * -1);
 
         int alertedScore = alerted * -200;
 
@@ -59,10 +63,11 @@ public class LevelManager : MonoBehaviour
 
         int totalScore = speedScore + alertedScore + hitTakenScore+ takeDownScore;
 
-        if(nokills) totalScore += 750;
-        if (noalerts) totalScore += 750;
-        if (perfect) totalScore += 1000;
+        if(nokills) totalScore += 10000;
+        if (noalerts) totalScore += 75000;
+        if (perfect) totalScore += 100000;
 
         UIMan.End(time, speedScore, alertedScore, hitTakenScore, takeDownScore, nokills, noalerts, perfect, totalScore);
+        AllAreas.SetActive(false);
     }
 }
