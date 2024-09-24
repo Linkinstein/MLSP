@@ -37,6 +37,7 @@ public class EnemyAI : MonoBehaviour
     public bool moveEnabled = true;
     public bool directionLookEnabled = true;
     public AreaCode ac;
+    public bool dead = false;
 
     [Header("Chase")]
     public bool isChasing = false;
@@ -49,18 +50,26 @@ public class EnemyAI : MonoBehaviour
     private Seeker seeker;
     private Rigidbody2D rb;
 
+    private void Awake()
+    {
+    }
+
     public void Start()
     {
         UIMan = UIManager.Instance;
         lm = LevelManager.instance;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        if (patrolPoints != null) targetVector = patrolPoints[patrolPointIndex].position;
-        else
+        if (patrolPoints == null && ac != null && ac.patrols != null)
+        {
+            patrolPoints = ac.patrols[ac.patrolIndex].PatrolPath;
+        }
+        else if (patrolPoints == null)
         {
             patrolPoints = new Transform[1];
             patrolPoints[0] = transform;
         }
+        targetVector = patrolPoints[patrolPointIndex].position;
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
@@ -200,7 +209,7 @@ public class EnemyAI : MonoBehaviour
         isChasing = true;
         if (StopChase != null) StopCoroutine(StopChase);
         alertMarker.SetActive(true);
-        ac.Alarm();
+        ac.Alarm(this.gameObject);
     }
 
     public void checkSussy(Collider2D sussyCollider)
@@ -243,12 +252,21 @@ public class EnemyAI : MonoBehaviour
 
     public void Defend(Transform defTarget)
     {
-        searchMarker.SetActive(true);
-        float rand = Random.Range(-3f, 3f);
-        Vector2 newTargetVector = new Vector2(defTarget.position.x + rand, defTarget.position.x);
-        isChasing = true;
-        speed = chaseSpeed;
-        targetVector = newTargetVector;
-        StopChase = StartCoroutine(BackToPatrol());
+        if (!isChasing)
+        {
+            searchMarker.SetActive(true);
+            float rand = Random.Range(-3f, 3f);
+            Vector2 newTargetVector = new Vector2(defTarget.position.x + rand, defTarget.position.x);
+            isChasing = true;
+            speed = chaseSpeed;
+            targetVector = newTargetVector;
+            StopChase = StartCoroutine(BackToPatrol());
+        }
+    }
+
+
+    public void ACDeadSignal()
+    {
+        ac.RemoveUnit(this.gameObject);
     }
 }

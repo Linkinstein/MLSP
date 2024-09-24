@@ -15,6 +15,12 @@ public class PlayerAnimator : MonoBehaviour
     public BoxCollider2D VisBox;
     public BoxCollider2D DashBox;
 
+    public bool trash
+    {
+        get { return pMan.trash; }
+        set { pMan.trash = value; }
+    }
+
     public bool canMove
     {
         get {return pMan.canMove;}
@@ -61,8 +67,14 @@ public class PlayerAnimator : MonoBehaviour
     private void CheckAnimationState()
     {
         anim.SetFloat("Vel Y", pMan.RB.velocity.y);
-        anim.SetBool("Trash", pMan.trash);
+        anim.SetBool("Trash", trash);
         anim.SetBool("Walking", Mathf.Abs(pMan.RB.velocity.x) > 0.1f);
+        if (trash)
+        {
+            if (Mathf.Abs(pMan.RB.velocity.x) > 0.1f || Mathf.Abs(pMan.RB.velocity.y) > 0.1f) VisBox.enabled = true;
+            else VisBox.enabled = false;
+        }
+
 
         if (startedJumping)
         {
@@ -86,7 +98,7 @@ public class PlayerAnimator : MonoBehaviour
             dash = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && !attacking && canMove && !pMan.trash)
+        if (Input.GetMouseButtonDown(0) && !attacking && canMove && !trash)
         {
             canMove = false;
             attacking = true;

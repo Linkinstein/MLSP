@@ -49,10 +49,10 @@ public class AreaCode : MonoBehaviour
         {
             GameObject collidedObject = collision.gameObject;
 
-            if (!units.Contains(collidedObject))
+            if (!collidedObject.GetComponent<EnemyAI>().dead)
             {
-                AddUnit(collidedObject);
                 collidedObject.GetComponent<EnemyAI>().ac = this;
+                AddUnit(collidedObject);
             }
         }
     }
@@ -67,20 +67,16 @@ public class AreaCode : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             GameObject collidedObject = collision.gameObject;
-
-            if (units.Contains(collidedObject))
-            {
-                RemoveUnit(collidedObject);
-            }
+            RemoveUnit(collidedObject);
         }
     }
 
     private void AddUnit(GameObject unit)
     {
-        units.Add(unit);
+        if (!units.Contains(unit)) units.Add(unit);
     }
 
-    private void RemoveUnit(GameObject unit)
+    public void RemoveUnit(GameObject unit)
     {
         units.Remove(unit);
     }
@@ -117,13 +113,18 @@ public class AreaCode : MonoBehaviour
         }
     }
 
-    public void Alarm()
+    public void Alarm(GameObject alerter)
     {
         if (canAlert)
         {
             foreach (GameObject neiheyhey in Neighbours)
             {
                 neiheyhey.GetComponent<AreaCode>().Alert(this.gameObject);
+            }
+
+            foreach (GameObject dude in units)
+            {
+                if (dude != null && dude != alerter) dude.GetComponent<EnemyAI>().Defend(alerter.transform);
             }
         }
     }

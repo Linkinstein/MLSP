@@ -69,14 +69,32 @@ public class PlayerHealth : MonoBehaviour
 
     private void RegenerateStamina()
     {
-        if (stamina < maxStamina)
-        {
-            stamina+=staminaRegen;
-        }
+        if (!pMan.dead)
+        { 
+            if (stamina < maxStamina)
+            {
+                stamina += staminaRegen;
+            }
 
-        if (stamina > maxStamina)
+            if (stamina > maxStamina)
+            {
+                stamina = maxStamina;
+            }
+        }
+    }
+    private void RegenerateHealth()
+    {
+        if (!pMan.dead)
         {
-            stamina = maxStamina;
+            if (health < maxHealth)
+            {
+                health += 1;
+            }
+
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
         }
     }
 }

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 30
   m_Sprite: {fileID: 21300000, guid: 6199e4ddbc6cf4841b0587d8c26a8f33, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -277,7 +277,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 23821c26b16391e44ae5d38a42dc2070, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -440,6 +440,7 @@ MonoBehaviour:
   moveEnabled: 1
   directionLookEnabled: 1
   ac: {fileID: 0}
+  dead: 0
   isChasing: 0
   chaseMaxRange: 1
   alertMarker: {fileID: 7676181614816616540}
@@ -485,7 +486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d258bf6ee30904b94077dd78981974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dead: 0
   canSus: 1
 --- !u!114 &7497337329741593335
 MonoBehaviour:

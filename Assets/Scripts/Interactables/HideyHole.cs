@@ -20,12 +20,16 @@ public class HideyHole : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            prompt.SetActive(true);
-            if (Input.GetKey(KeyCode.E) && !PlayerInput.instance.attacking && !PlayerInput.instance.IsDashing)
+            if (!pMan.seen)
             {
-                pAnim.Hide();
-                hiding = true;
+                prompt.SetActive(true);
+                if (Input.GetKey(KeyCode.E) && !pMan.attacking && !pMan.isDashing)
+                {
+                    pAnim.Hide();
+                    hiding = true;
+                }
             }
+            else prompt.SetActive(false);
 
             if (!Input.GetKey(KeyCode.E) && hiding)
             {
