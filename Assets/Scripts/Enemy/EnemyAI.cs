@@ -92,16 +92,10 @@ public class EnemyAI : MonoBehaviour
 
     private void PathFollow()
     {
-        if (path == null)
-        {
-            return;
-        }
+        if (path == null) return;
 
         // Reached end of path
-        if (waypointIndex >= path.vectorPath.Count)
-        {
-            return;
-        }
+        if (waypointIndex >= path.vectorPath.Count) return;
 
         #region Arrive at Patrol Point
         if (Vector2.Distance(rb.position, patrolPoints[patrolPointIndex].position) < nextWaypointDistance && !isChasing && !checkingSus)
@@ -113,7 +107,6 @@ public class EnemyAI : MonoBehaviour
 
 
         #region Move
-
         // Next Waypoint
         float distance = Vector2.Distance(rb.position, path.vectorPath[waypointIndex]);
 
@@ -207,7 +200,7 @@ public class EnemyAI : MonoBehaviour
         moveEnabled = true;
         speed = chaseSpeed;
         isChasing = true;
-        if (StopChase != null) StopCoroutine(StopChase);
+        StopAllCoroutines();
         alertMarker.SetActive(true);
         ac.Alarm(this.gameObject);
     }
@@ -254,6 +247,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (!isChasing)
         {
+            checkingSus = true;
+            StopAllCoroutines();
             searchMarker.SetActive(true);
             float rand = Random.Range(-3f, 3f);
             Vector2 newTargetVector = new Vector2(defTarget.position.x + rand, defTarget.position.x);

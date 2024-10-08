@@ -323,6 +323,16 @@ public class PlayerInput : MonoBehaviour
 	void OnTrashInput()
 	{
 		if (canTrash && CanJump()) trash = !trash;
+		if (trash)
+		{
+			pMan.VisBox.enabled = false;
+			pMan.DashBox.enabled = false;
+		}
+		else
+        {
+            pMan.VisBox.enabled = true;
+            pMan.DashBox.enabled = true;
+        }
 	}
 
     public void Lunge()

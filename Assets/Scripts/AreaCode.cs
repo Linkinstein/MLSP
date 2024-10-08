@@ -124,7 +124,7 @@ public class AreaCode : MonoBehaviour
 
             foreach (GameObject dude in units)
             {
-                if (dude != null && dude != alerter) dude.GetComponent<EnemyAI>().Defend(alerter.transform);
+                if (dude != alerter) dude.GetComponent<EnemyAI>().Defend(alerter.transform);
             }
         }
     }

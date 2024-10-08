@@ -75,6 +75,7 @@ public class PlayerAnimator : MonoBehaviour
         anim.SetFloat("Vel Y", pMan.RB.velocity.y);
         anim.SetBool("Trash", trash);
         anim.SetBool("Walking", Mathf.Abs(pMan.RB.velocity.x) > 0.1f);
+
         if (trash)
         {
             if (Mathf.Abs(pMan.RB.velocity.x) > 0.1f || Mathf.Abs(pMan.RB.velocity.y) > 0.1f)
