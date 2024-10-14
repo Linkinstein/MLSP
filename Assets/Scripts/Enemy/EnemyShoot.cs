@@ -29,13 +29,27 @@ public class EnemyShoot : MonoBehaviour
     private IEnumerator Shoot()
     {
         fired = true;
+        Turn();
         yield return new WaitForSeconds(ShootDelay);
         if (eAI.isChasing && cc.enabled)
         {
+            Turn();
             Projectile bullet = Instantiate(bulletPrefab, BulletPort.transform.position, Quaternion.identity);
             bullet.ShootAt(eAI.targetVector);
             aS.Play();
         }
         fired = false;
+    }
+
+    private void Turn()
+    {
+        if (eAI.facing > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (eAI.facing < 0)
+        {
+            transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
     }
 }

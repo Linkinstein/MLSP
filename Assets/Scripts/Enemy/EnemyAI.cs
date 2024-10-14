@@ -35,9 +35,9 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Custom Behavior")]
     public bool moveEnabled = true;
-    public bool directionLookEnabled = true;
     public AreaCode ac;
     public bool dead = false;
+    public float facing = 0;
 
     [Header("Chase")]
     public bool isChasing = false;
@@ -76,10 +76,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (moveEnabled)
-        {
-            PathFollow();
-        }
+        PathFollow();
     }
 
     private void UpdatePath()
@@ -92,6 +89,19 @@ public class EnemyAI : MonoBehaviour
 
     private void PathFollow()
     {
+        Vector2 direction = ((targetVector - rb.position) * 1000).normalized;
+
+        #region Turn
+        if (direction.x * 1000 > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (direction.x * 1000 < 0)
+        {
+            transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        #endregion
+
         if (path == null) return;
 
         // Reached end of path
@@ -104,7 +114,6 @@ public class EnemyAI : MonoBehaviour
             return;
         }
         #endregion
-
 
         #region Move
         // Next Waypoint
@@ -119,7 +128,6 @@ public class EnemyAI : MonoBehaviour
             }
             distance = Vector2.Distance(rb.position, path.vectorPath[waypointIndex]);
         }
-        Vector2 direction = (((Vector2)path.vectorPath[waypointIndex] - rb.position) * 1000).normalized;
 
         if (isChasing)
         {
@@ -156,19 +164,6 @@ public class EnemyAI : MonoBehaviour
         }
         #endregion
 
-        #region Turn
-        if (directionLookEnabled)
-        {
-            if (rb.velocity.x > 0)
-            {
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-            else if (rb.velocity.x < 0)
-            {
-                transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-        }
-        #endregion
     }
 
     private void OnPathComplete(Path p)

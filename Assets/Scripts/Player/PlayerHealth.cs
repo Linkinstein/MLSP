@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -34,6 +35,16 @@ public class PlayerHealth : MonoBehaviour
     {
         get { return pMan.staminaRegen; }
         set { pMan.staminaRegen = value; }
+    }
+    public int hpS
+    {
+        get { return pMan.hpS; }
+        set { pMan.hpS = value; }
+    }
+    public int hpB
+    {
+        get { return pMan.hpB; }
+        set { pMan.hpB = value; }
     }
 
     private void Awake()
@@ -99,6 +110,28 @@ public class PlayerHealth : MonoBehaviour
             {
                 health = maxHealth;
             }
+        }
+    }
+
+    public void UseHpS()
+    {
+        if (hpS > 0)
+        { 
+            health += 3;
+            pMan.hpS--;
+        }
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+    }
+
+    private void UseHpB()
+    {
+        if (hpB > 0) 
+        { 
+            health = maxHealth;
+            hpB--;
         }
     }
 }

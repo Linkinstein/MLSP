@@ -25,6 +25,10 @@ public class PlayerManager : MonoBehaviour
 
     public bool dead = false;
 
+    public int hpS = 0;
+    public int hpB = 0;
+
+
 
 
     [SerializeField] public int health = 10;
