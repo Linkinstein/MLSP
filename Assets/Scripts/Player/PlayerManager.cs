@@ -7,8 +7,6 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
-    private UIManager uiMan;
-
     [SerializeField] AudioSource DeadAS;
 
     public bool canMove = true;
@@ -41,17 +39,11 @@ public class PlayerManager : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        uiMan = UIManager.Instance;
-    }
-
     public void Death()
     {
         dead = true;
         maxHealth = 0;
         maxStamina = 0;
         DeadAS.Play();
-        uiMan.Dead();
     }
 }

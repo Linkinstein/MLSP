@@ -18,7 +18,7 @@ public class PlayerAnimator : MonoBehaviour
     }
     public BoxCollider2D DashBox
     {
-        get { return pMan.DashBox; }
+        get { return pMan.VisBox; }
     }
 
     public bool trash
@@ -113,7 +113,7 @@ public class PlayerAnimator : MonoBehaviour
             dash = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && !attacking && canMove && !trash && !UIMan.cinematic && !UIMan.tabOn)
+        if (Input.GetMouseButtonDown(0) && !attacking && canMove && !trash)
         {
             canMove = false;
             attacking = true;
