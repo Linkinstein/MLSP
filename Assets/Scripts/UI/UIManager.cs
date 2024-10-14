@@ -12,11 +12,13 @@ public class UIManager : MonoBehaviour
     private PASystem PASys;
 
     [SerializeField] private GameObject PauseUI;
+    [SerializeField] private GameObject TabUI;
     [SerializeField] private GameObject RetryUI;
 
     private bool _pause = false;
     public bool cinematic = false;
     private bool pauseOn = false;
+    public bool tabOn = false;
 
     public bool pause
     {
@@ -44,11 +46,20 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !cinematic)
+        if (!cinematic)
         {
-            if (!pauseOn) Pause();
-            else Unpause();
-            
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (tabOn) UnTab();
+                else if (!pauseOn) Pause();
+                else Unpause();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Tab) && !pauseOn)
+            {
+                if (!tabOn) Tab();
+                else UnTab();
+            }
         }
     }
 
@@ -66,8 +77,22 @@ public class UIManager : MonoBehaviour
         pauseOn = false;
     }
 
+    public void Tab()
+    {
+        pause = true;
+        TabUI.SetActive(true);
+        tabOn = true;
+    }
+
+    public void UnTab()
+    {
+        pause = false;
+        TabUI.SetActive(false);
+        tabOn = false;
+    }
     public void End(string time, int spd, int alertos, int hiTakis, int takis, bool nills, bool nalerts, bool perfsta, int totesco)
     {
+        cinematic = true;
         esMan.End(time, spd, alertos, hiTakis, takis, nills, nalerts, perfsta, totesco);
     }
 
@@ -75,6 +100,7 @@ public class UIManager : MonoBehaviour
     {
         dMan.SetDiOb(diOb);
         dMan.On();
+        cinematic = true;
     }
 
     public void Back2Menu()
@@ -105,7 +131,8 @@ public class UIManager : MonoBehaviour
     }
 
     public void Dead()
-    { 
+    {
+        cinematic = true;
         RetryUI.SetActive(true);
     }
 }
