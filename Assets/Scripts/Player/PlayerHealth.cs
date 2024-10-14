@@ -101,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!pMan.dead)
         {
-            if (health < maxHealth)
+            if (health < 3)
             {
                 health += 1;
             }
@@ -126,7 +126,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void UseHpB()
+    public void UseHpB()
     {
         if (hpB > 0) 
         { 

@@ -385,7 +385,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &352520302104505034
 MonoBehaviour:
@@ -431,6 +431,7 @@ MonoBehaviour:
   normalSpeed: 2
   chaseSpeed: 5
   targetVector: {x: -8.5, y: -4}
+  direction: {x: 0, y: 0}
   PlayerLastSeen: {x: 0, y: 0}
   pathUpdateSeconds: 0.5
   nextWaypointDistance: 0.5
@@ -443,9 +444,9 @@ MonoBehaviour:
   defTimer: 20
   searchMarker: {fileID: 4608048821297550521}
   moveEnabled: 1
-  directionLookEnabled: 1
   ac: {fileID: 0}
   dead: 0
+  facing: 0
   isChasing: 0
   chaseMaxRange: 1
   alertMarker: {fileID: 7676181614816616540}

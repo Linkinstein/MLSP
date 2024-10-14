@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Pathfinding")]
     public Vector2 targetVector;
+    public Vector2 direction;
     public Vector2 PlayerLastSeen;
     public float pathUpdateSeconds = 0.5f;
     public float nextWaypointDistance = 0.1f;
@@ -76,7 +77,8 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PathFollow();
+        Turn();
+        if(moveEnabled) PathFollow();
     }
 
     private void UpdatePath()
@@ -87,9 +89,9 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void PathFollow()
+    private void Turn()
     {
-        Vector2 direction = ((targetVector - rb.position) * 1000).normalized;
+        direction = ((targetVector - rb.position) * 1000).normalized;
 
         #region Turn
         if (direction.x * 1000 > 0)
@@ -101,6 +103,11 @@ public class EnemyAI : MonoBehaviour
             transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
         #endregion
+    }
+
+    private void PathFollow()
+    {
+        
 
         if (path == null) return;
 
