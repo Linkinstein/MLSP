@@ -86,6 +86,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Off()
     {
+        UIMan.cinematic = false;
         UIMan.pause = false;
         active = false;
         dialogueUI.SetActive(false);
