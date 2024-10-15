@@ -438,7 +438,9 @@ MonoBehaviour:
   waypointIndex: 0
   patrolPause: 5
   chaseTimer: 10
-  patrolPoints: []
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
   patrolPointIndex: 0
   checkingSus: 0
   defTimer: 20
