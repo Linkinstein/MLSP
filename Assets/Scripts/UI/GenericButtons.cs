@@ -10,6 +10,11 @@ public class GenericButtons : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void PlayLevel2()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void Quit()
     {
         Application.Quit();
