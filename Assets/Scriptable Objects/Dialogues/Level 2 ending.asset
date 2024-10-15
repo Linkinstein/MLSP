@@ -12,9 +12,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b010e6d11321264f8d7a25f204a97e7, type: 3}
   m_Name: Level 2 ending
   m_EditorClassIdentifier: 
-  dialogues: []
-  rightName: []
-  leftName: []
-  rightPortrait: []
-  leftPortrait: []
-  rightTalking: 
+  dialogues:
+  - Hey, you made it to the end!
+  - You did it!
+  - Hey, you!
+  - Yeah, you!
+  - Player!
+  - You're amazing!
+  - You're a champ for making it all the way here!
+  - Congratulations!
+  - Wowzers!
+  - Please contact the nearest dev and ask for your prize right now!
+  - If you find Pat, he'll give you 50 bucks!
+  - ' Finding Manho will net you a joyride in his car!'
+  - ' Don''t talk to Lin, though.'
+  - Yeah, keep away from him.
+  - ...
+  - ...
+  rightName:
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  - Chord
+  leftName:
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  - Mongoose
+  rightPortrait:
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
+  leftPortrait:
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
+  rightTalking: 01000001000001000100000100010001
