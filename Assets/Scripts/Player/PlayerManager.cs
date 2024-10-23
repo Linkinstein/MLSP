@@ -29,11 +29,32 @@ public class PlayerManager : MonoBehaviour
     public int hpB = 0;
 
 
+    public float hpRT = 0;
+    [SerializeField] private int _health = 10;
+    public int health
+    {
+        get { return _health; } 
+        set 
+        {
+            if (value < _health) hpRT = 1;
+            _health = value;
+        } 
+    }
 
-
-    [SerializeField] public int health = 10;
     [SerializeField] public int maxHealth = 10;
-    [SerializeField] public int stamina = 100;
+
+    public float spRT = 0;
+    [SerializeField] private int _stamina = 100;
+    public int stamina
+    {
+        get { return _stamina; }
+        set
+        {
+            if (value < _stamina) spRT = 1;
+            _stamina = value;
+        }
+    }
+
     [SerializeField] public int maxStamina = 100;
     [SerializeField] public int staminaRegen = 10;
 
@@ -48,6 +69,12 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         uiMan = UIManager.Instance;
+    }
+
+    private void Update()
+    {
+        if (hpRT > 0) hpRT -= Time.deltaTime;
+        if (spRT > 0) spRT -= Time.deltaTime;
     }
 
     public void Death()

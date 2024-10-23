@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0)
+        if (health <= 0 && Time.timeScale != 0)
         {
             eAI.GetComponent<Death>().Die();
         }
@@ -18,5 +18,13 @@ public class Health : MonoBehaviour
     public void TakeDamage(int dmg)
     { 
         health -= dmg;
+        Time.timeScale = 0f;
+        StartCoroutine(HitStop());
+    }
+
+    IEnumerator HitStop()
+    {
+        yield return new WaitForSecondsRealtime(0.25f);
+        Time.timeScale = 1f;
     }
 }

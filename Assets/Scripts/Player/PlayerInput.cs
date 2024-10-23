@@ -214,12 +214,13 @@ public class PlayerInput : MonoBehaviour
 				_isJumpFalling = false;
 			}
 
-			if (!IsDashing && !attacking && canMove && !trash)
+			if (!IsDashing && !attacking && canMove && !trash && pMan.stamina > 5)
 			{
 				//Jump
 				if (CanJump() && LastPressedJumpTime > 0)
-				{
-					IsJumping = true;
+                {
+                    pMan.stamina -= 5;
+                    IsJumping = true;
 					IsWallJumping = false;
 					_isJumpCut = false;
 					_isJumpFalling = false;

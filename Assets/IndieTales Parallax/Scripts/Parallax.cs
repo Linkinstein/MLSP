@@ -36,7 +36,6 @@ public class Parallax : MonoBehaviour {
 
     // Start is called before the first frame update
     void Awake() {
-        cam = Camera.main;
         startPos = transform.position;
         zPosition = transform.position.z;
 

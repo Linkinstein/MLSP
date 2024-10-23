@@ -8,6 +8,7 @@ public class EnemyAnimator : MonoBehaviour
     private UIManager UIMan;
     Rigidbody2D RB;
     Animator anim;
+    [SerializeField] EnemyAI eAI;
     [SerializeField] AudioSource aS;
 
     void Start()
@@ -38,6 +39,13 @@ public class EnemyAnimator : MonoBehaviour
                 aS.Play();
             }
         }
+        anim.SetBool("Running", eAI.checkingSus || eAI.isChasing);
+
+    }
+
+    public void Shoot()
+    {
+        anim.SetTrigger("Shoot");
     }
 
     public void Die()

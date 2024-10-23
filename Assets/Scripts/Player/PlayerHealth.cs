@@ -80,13 +80,21 @@ public class PlayerHealth : MonoBehaviour
         PlayerAnimator.instance.UnHide();
         health -= dmg;
         lm.hitTaken++;
+        Time.timeScale = 0f;
+        StartCoroutine(HitStop());
+
+    }
+    IEnumerator HitStop()
+    {
+        yield return new WaitForSecondsRealtime(0.25f);
+        Time.timeScale = 1f;
     }
 
     private void RegenerateStamina()
     {
         if (!pMan.dead)
         { 
-            if (stamina < maxStamina)
+            if (stamina < maxStamina && pMan.spRT<=0)
             {
                 stamina += staminaRegen;
             }
@@ -101,7 +109,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!pMan.dead)
         {
-            if (health < 3)
+            if (health < 3 && pMan.hpRT <= 0)
             {
                 health += 1;
             }
