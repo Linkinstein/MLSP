@@ -13,31 +13,15 @@ MonoBehaviour:
   m_Name: Level 2 ending
   m_EditorClassIdentifier: 
   dialogues:
-  - Hey, you made it to the end!
-  - You did it!
-  - Hey, you!
-  - Yeah, you!
-  - Player!
-  - You're amazing!
-  - You're a champ for making it all the way here!
-  - Congratulations!
-  - Wowzers!
-  - Please contact the nearest dev and ask for your prize right now!
-  - If you find Pat, he'll give you 50 bucks!
-  - ' Finding Manho will net you a joyride in his car!'
-  - ' Don''t talk to Lin, though.'
-  - Yeah, keep away from him.
-  - ...
-  - ...
+  - Major, I think I've found what they've been hiding down here.
+  - It looks like some kind of incomplete robot.
+  - It's even missing an arm.
+  - Send me a picture, Mongoose.
+  - Here you are, Major.
+  - Dear lord.
+  - That's a War Gear, Mongoose!
+  - Not just any War Gear, but Tchadensis itself!
   rightName:
-  - Chord
-  - Chord
-  - Chord
-  - Chord
-  - Chord
-  - Chord
-  - Chord
-  - Chord
   - Chord
   - Chord
   - Chord
@@ -55,23 +39,7 @@ MonoBehaviour:
   - Mongoose
   - Mongoose
   - Mongoose
-  - Mongoose
-  - Mongoose
-  - Mongoose
-  - Mongoose
-  - Mongoose
-  - Mongoose
-  - Mongoose
-  - Mongoose
   rightPortrait:
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
-  - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
   - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
   - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
   - {fileID: 21300000, guid: 14fc7c594c206ca428bf60b7098eff91, type: 3}
@@ -89,12 +57,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
   - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
   - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  - {fileID: 21300000, guid: 9c05650ad8103b146abd3508291e2ac1, type: 3}
-  rightTalking: 01000001000001000100000100010001
+  rightTalking: 0000000100010101

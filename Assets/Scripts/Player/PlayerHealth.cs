@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     LevelManager lm;
     PlayerAnimator pAnim;
     PlayerManager pMan;
+    [SerializeField] private SpriteRenderer sr;
 
     public int health
     {
@@ -86,8 +87,10 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator HitStop()
     {
+        sr.color = Color.red;
         yield return new WaitForSecondsRealtime(0.25f);
         Time.timeScale = 1f;
+        sr.color = Color.white;
     }
 
     private void RegenerateStamina()

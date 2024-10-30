@@ -9,7 +9,6 @@ public class PASystem : MonoBehaviour
 {
     public static PASystem Instance;
 
-    [SerializeField] AudioSource aS;
 
     [SerializeField] Image header;
     [SerializeField] TextMeshProUGUI headerText;
@@ -20,6 +19,11 @@ public class PASystem : MonoBehaviour
     [SerializeField] float panelLife = 6;
     [SerializeField] float timer = 0;
     [SerializeField] bool alerted = false;
+    [SerializeField] private float crossfadeDuration = 3.0f;
+    [SerializeField] AudioSource AS;
+    [SerializeField] AudioSource BGM;
+    [SerializeField] AudioSource AM;
+    private float BGMCap = 0;
 
     private void Awake()
     {
@@ -29,11 +33,12 @@ public class PASystem : MonoBehaviour
     private void Start()
     {
         timer = 0.01f;
+        BGMCap = BGM.volume;
     }
 
     void Update()
     {
-        if (timer > 0) 
+        if (timer > 0)
         {
             timer -= Time.deltaTime;
             if (timer < 2)
@@ -46,26 +51,68 @@ public class PASystem : MonoBehaviour
                 headerText.alpha = alpha;
             }
         }
-        else alerted = false;
+        else if (alerted)
+        {
+            StartCoroutine(ConvertToNormal());
+            alerted = false;
+        }
+    }
+
+    private void ConvertToAlert()
+    {
+        StopAllCoroutines();
+        BGM.volume = 0;
+        if (AM.isPlaying) AM.Stop();
+        AM.volume = BGMCap;
+        AM.Play();
+    }
+
+    IEnumerator ConvertToNormal()
+    {
+        float elapsedTime = 0f;
+        float initialAMVolume = AM.volume;
+        float initialBGMVolume = BGM.volume;
+
+        while (elapsedTime < crossfadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / crossfadeDuration;
+
+            // Linearly interpolate both volumes
+            AM.volume = Mathf.Lerp(initialAMVolume, 0f, t);
+            BGM.volume = Mathf.Lerp(initialBGMVolume, BGMCap, t);
+
+            yield return null;
+        }
+
+        AM.volume = 0f;
+        AM.Stop();
+        BGM.volume = BGMCap;
     }
 
     public void Alert()
     {
-        PanelOn();
+        if (!alerted)
+        {
+            panelColor = Color.red;
+            PanelOn();
+            text.SetText("Intruder Detected");
+            if (!AS.isPlaying) AS.Play();
+            ConvertToAlert();
+        }
+        alerted = true;
         timer = panelLife;
-        panelColor = Color.red;
-        text.SetText("Intruder Detected");
-        if (!aS.isPlaying) aS.Play();
     }
 
     public void Sustivity()
     {
         if (!alerted)
         {
-            PanelOn();
             timer = panelLife;
             panelColor = Color.yellow;
-            text.SetText("Sussiness Detected");
+            PanelOn();
+            text.SetText("Suspicion Raised");
+            if (!AS.isPlaying) AS.Play();
         }
     }
 
@@ -73,11 +120,11 @@ public class PASystem : MonoBehaviour
     {
         if (!alerted)
         {
-            PanelOn();
             timer = panelLife;
             panelColor = Color.yellow;
+            PanelOn();
             text.SetText("Body found");
-            if (!aS.isPlaying) aS.Play();
+            if (!AS.isPlaying) AS.Play();
         }
     }
 

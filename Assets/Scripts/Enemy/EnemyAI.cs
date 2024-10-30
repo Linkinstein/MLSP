@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -73,12 +74,19 @@ public class EnemyAI : MonoBehaviour
         targetVector = patrolPoints[patrolPointIndex].position;
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
+        InvokeRepeating("BigBrainUnstuckingMovementXD", 0f, 2f);
+    }
+
+    private void BigBrainUnstuckingMovementXD()
+    {
+        if (moveEnabled) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + 1f);
     }
 
     private void FixedUpdate()
     {
         Turn();
-        if(moveEnabled) PathFollow();
+        if (moveEnabled) PathFollow();
+        else rb.velocity = new Vector2(0, 0);
     }
 
     private void UpdatePath()

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MapCamera : MonoBehaviour
 {
-    public float moveSpeed = 2f;
-    public float zoomSpeed = 2f; 
+    public float camSpeed = 2f;
+    public float zoomSpeed = 10f; 
     public float minZoom = 10f; 
     public float maxZoom = 50;  
 
@@ -14,6 +14,7 @@ public class MapCamera : MonoBehaviour
 
     void Update()
     {
+        float moveSpeed = cam.orthographicSize * camSpeed;
         float horizontalInput = 0f;
         float verticalInput = 0f;
 

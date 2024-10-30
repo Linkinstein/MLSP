@@ -173,7 +173,8 @@ public class PlayerInput : MonoBehaviour
 				{
 					if (LastOnGroundTime < -0.1f)
 					{
-						AnimHandler.justLanded = true;
+                        pMan.PlaySE(1);
+                        AnimHandler.justLanded = true;
 					}
 
 					LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
@@ -196,8 +197,8 @@ public class PlayerInput : MonoBehaviour
 
 			#region JUMP CHECKS
 			if (IsJumping && RB.velocity.y < 0)
-			{
-				IsJumping = false;
+            {
+                IsJumping = false;
 
 				_isJumpFalling = true;
 			}
@@ -208,8 +209,8 @@ public class PlayerInput : MonoBehaviour
 			}
 
 			if (LastOnGroundTime > 0 && !IsJumping && !IsWallJumping)
-			{
-				_isJumpCut = false;
+            {
+                _isJumpCut = false;
 
 				_isJumpFalling = false;
 			}
@@ -219,6 +220,7 @@ public class PlayerInput : MonoBehaviour
 				//Jump
 				if (CanJump() && LastPressedJumpTime > 0)
                 {
+					pMan.PlaySE(0);
                     pMan.stamina -= 5;
                     IsJumping = true;
 					IsWallJumping = false;
@@ -230,8 +232,9 @@ public class PlayerInput : MonoBehaviour
 				}
 				//WALL JUMP
 				else if (CanWallJump() && LastPressedJumpTime > 0)
-				{
-					IsWallJumping = true;
+                {
+                    pMan.PlaySE(0);
+                    IsWallJumping = true;
 					IsJumping = false;
 					_isJumpCut = false;
 					_isJumpFalling = false;
@@ -246,9 +249,10 @@ public class PlayerInput : MonoBehaviour
 
 			#region DASH CHECKS
 			if (CanDash() && LastPressedDashTime > 0 && !attacking && canMove && pMan.stamina>30 && !trash)
-			{
-				//Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
-				Sleep(Data.dashSleepTime);
+            {
+                pMan.PlaySE(2);
+                //Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
+                Sleep(Data.dashSleepTime);
 
 				//If not direction pressed, dash forward
 				if (_moveInput != Vector2.zero)

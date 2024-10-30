@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int health = 6;
     [SerializeField] private EnemyAI eAI;
+    [SerializeField] private SpriteRenderer sr;
 
     private void Update()
     {
@@ -24,7 +25,9 @@ public class Health : MonoBehaviour
 
     IEnumerator HitStop()
     {
+        sr.color = Color.red;
         yield return new WaitForSecondsRealtime(0.25f);
         Time.timeScale = 1f;
+        sr.color = Color.white;
     }
 }

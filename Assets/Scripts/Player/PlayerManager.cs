@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     private UIManager uiMan;
 
     [SerializeField] AudioSource DeadAS;
+    [SerializeField] AudioSource[] SE;
 
     public bool canMove = true;
     public bool seen = false;
@@ -84,5 +85,10 @@ public class PlayerManager : MonoBehaviour
         maxStamina = 0;
         DeadAS.Play();
         uiMan.Dead();
+    }
+
+    public void PlaySE(int i)
+    {
+        SE[i].Play();
     }
 }
