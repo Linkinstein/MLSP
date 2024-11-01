@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GenericButtons : MonoBehaviour
 {
+    public void PlayMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void PlayLevel1()
     {
         SceneManager.LoadScene(1);
@@ -13,6 +18,11 @@ public class GenericButtons : MonoBehaviour
     public void PlayLevel2()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void PlayCredits()
+    {
+        SceneManager.LoadScene(3);
     }
 
     public void Quit()
